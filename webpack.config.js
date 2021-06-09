@@ -2,17 +2,21 @@ const path = require("path");
 const webpack = require('webpack');
 
 module.exports = {
-	entry: path.join(__dirname, "client", "app.js"),
+	entry: path.join(__dirname, "client", "index.jsx"),
 	module: {
 			rules: [
 				{
 					test: /\.(js|jsx)$/,
 					exclude: /node_modules/,
 					use: {
-						loader: "babel-loader"
+						loader: "babel-loader",
 					}
+				},
+				{
+					test: /\.css$/,
+					use: ['style-loader', 'css-loader']
 				}
-			]
+			]	
 	},
 	resolve: {
 			extensions: ['*', '.js', '.jsx']
