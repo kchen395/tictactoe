@@ -1,0 +1,10 @@
+.square {
+  background: #fff;
+  border: 1px solid black;
+  float: left;
+  font-size: 50px;
+  font-weight: bold;
+  height: 100px;
+  text-align: center;
+  width: 100px;
+}
