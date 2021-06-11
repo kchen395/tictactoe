@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import * as _ from "lodash";
+import AuthService from "../services/auth.service";
 
 export default class Computer extends Component {
   constructor(props) {
@@ -9,8 +10,18 @@ export default class Computer extends Component {
 
     this.state = {
       moves: Array(9).fill(null),
-      winner: ""
+      winner: "",
+      user: ""
     };
+  }
+
+  async componentDidMount() {
+    const user = await AuthService.getCurrentUser();
+    if (user) {
+			this.setState({ user: user.username });
+    } else {
+			window.location.replace("/login");
+    }
   }
 
   checkWinner(moves, markType) {
@@ -44,15 +55,15 @@ export default class Computer extends Component {
     for (let winCondition of winConditions) {
       if (_.difference(winCondition, markedSquares).length === 0) {
         return true;
-      } 
-		}
-		return false;
+      }
+    }
+    return false;
   }
 
   handleClick(i) {
     const { moves, winner } = this.state;
-		if (moves[i]) return;
-		if (winner) return;
+    if (moves[i]) return;
+    if (winner) return;
     moves[i] = "X";
     if (this.checkWinner(moves, "X")) {
       this.setState({ moves, winner: "player" });
@@ -79,7 +90,8 @@ export default class Computer extends Component {
   }
 
   render() {
-    const { moves, winner } = this.state;
+    const { moves, winner, user } = this.state;
+    if (!user) return <div></div>;
 
     const square = i => (
       <button className="square" onClick={() => this.handleClick(i)}>

@@ -27,6 +27,8 @@
     "react-router-dom": "^5.2.0",
     "regenerator-runtime": "^0.13.7",
     "sequelize": "^6.6.2",
+    "socket.io": "^4.1.2",
+    "socket.io-client": "^4.1.2",
     "validator": "^13.6.0"
   },
   "devDependencies": {

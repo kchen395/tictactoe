@@ -8,6 +8,7 @@ import Login from "./components/login";
 import Register from "./components/register";
 import Home from "./components/home";
 import Computer from "./components/computer";
+import Player from "./components/player";
 import "./index.css"
 
 class App extends Component {
@@ -81,6 +82,7 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
 						<Route exact path="/computer" component={Computer} />
+						<Route exact path="/player" component={Player} />
           </Switch>
         </div>
       </div>

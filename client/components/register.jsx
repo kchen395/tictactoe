@@ -38,7 +38,6 @@ export default class Register extends Component {
 
     AuthService.register(this.state.username, this.state.password).then(
       response => {
-				console.log(response)
         this.setState({
           message: response.data.message,
           successful: true
