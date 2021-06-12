@@ -22,16 +22,22 @@ export default class History extends Component {
     return (
       <div className="container">
         <header className="jumbotron">
-          <h3>Tic Tac Toe</h3>
           <h4>History</h4>
         </header>
-        <ol>
-          {pastGames.map((game, i) => (
-            <li key={i}>{`${game.player1} vs. ${game.player2} || Result: ${
-              game.winner === "draw" ? "Draw" : `${game.winner} Won`
-            }`}</li>
-          ))}
-        </ol>
+        <table className="table table-striped">
+          <tbody>
+            {pastGames.map((game, i) => (
+              <tr key={i}>
+                <td>
+                  {game.player1} vs. {game.player2}
+                </td>
+                <td>
+                  {game.winner === "draw" ? "Draw" : `${game.winner} Won`}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     );
   }

@@ -22,16 +22,21 @@ export default class Leaderboard extends Component {
     return (
       <div className="container">
         <header className="jumbotron">
-          <h3>Tic Tac Toe</h3>
           <h4>Leaderboard</h4>
         </header>
-        <ol>
-          {topWinners
-            .sort((user1, user2) => user2.wins - user1.wins)
-            .map((winner, i) => (
-              <li key={i}>{`${winner.username} || ${winner.wins} wins`}</li>
-            ))}
-        </ol>
+        <table className="table table-striped">
+          <tbody>
+            {topWinners
+              .sort((user1, user2) => user2.wins - user1.wins)
+              .map((winner, i) => (
+                <tr key={i}>
+                  <th scope="row">{i + 1}</th>
+                  <td>{winner.username}</td>
+                  <td>{winner.wins} wins</td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
       </div>
     );
   }

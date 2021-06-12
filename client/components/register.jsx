@@ -93,14 +93,14 @@ export default class Register extends Component {
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group mt-2">
                   <button className="btn btn-primary btn-block">Sign Up</button>
                 </div>
               </div>
             )}
 
             {this.state.message && (
-              <div className="form-group">
+              <div className="form-group mt-2">
                 <div
                   className={
                     this.state.successful

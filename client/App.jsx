@@ -42,7 +42,10 @@ class App extends Component {
 
     return (
       <div>
-        <nav className="navbar navbar-expand">
+        <nav className="navbar navbar-expand navbar-light bg-light">
+          <div className="navbar-brand ms-5" href="#">
+            Tic Tac Toe
+          </div>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
               <Link to={"/home"} className="nav-link">

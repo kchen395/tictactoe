@@ -88,7 +88,7 @@ export default class Login extends Component {
               />
             </div>
 
-            <div className="form-group">
+            <div className="form-group mt-2">
               <button
                 className="btn btn-primary btn-block"
                 disabled={this.state.loading}
@@ -101,7 +101,7 @@ export default class Login extends Component {
             </div>
 
             {this.state.message && (
-              <div className="form-group">
+              <div className="form-group mt-2">
                 <div className="alert alert-danger" role="alert">
                   {this.state.message}
                 </div>

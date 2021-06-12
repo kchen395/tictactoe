@@ -105,18 +105,27 @@ export default class Computer extends Component {
     if (game.currTurn !== mark) return;
     moves[i] = mark;
     if (this.checkWinner(moves, mark)) {
+      let player1;
+      let player2;
+      if (mark === "X") {
+        player1 = user;
+        player2 = opponent;
+      } else {
+        player1 = opponent;
+        player2 = user;
+      }
       axios.put(API_URL + "leaderboard/record", { username: user });
       axios.post(API_URL + "game/record", {
-        player1: user,
-        player2: opponent,
+        player1,
+        player2,
         winner: user
       });
       game.winningMark = mark;
     }
     if (moves.filter(move => !!move).length === 9) {
       axios.post(API_URL + "game/record", {
-        player1: user,
-        player2: opponent,
+        player1,
+        player2,
         winner: "draw"
       });
       game.winningMark = "draw";
@@ -127,7 +136,7 @@ export default class Computer extends Component {
     this.setState({ moves, game });
   }
 
-  rematch(i) {
+  rematch() {
     const { user } = this.state;
     this.setState({ status: "" });
     socket.emit("joinGame", { username: user });
@@ -162,7 +171,7 @@ export default class Computer extends Component {
         result = "You lose.";
       }
       return (
-        <div className="alert alert-primary" role="alert">
+        <div className="alert alert-info text-center" role="alert">
           {result}
         </div>
       );
@@ -171,16 +180,20 @@ export default class Computer extends Component {
     const rematchWidget = () => {
       if (!game || !game.winningMark || !status) return;
       return (
-        <button className="btn btn-primary" onClick={this.rematch}>
-          Find new game
-        </button>
+        <div className="text-center">
+          <button
+            className="btn btn-primary mt-3"
+            onClick={this.rematch}
+          >
+            Find new game
+          </button>
+        </div>
       );
     };
 
     return (
       <div className="container">
         <header className="jumbotron">
-          <h3>Tic Tac Toe</h3>
           <h4>Vs. Player</h4>
         </header>
         {statusWidget()}

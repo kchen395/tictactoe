@@ -15,29 +15,27 @@ export default class Home extends Component {
 
     if (!currentUser) {
       return (
-        <div className="container">
-          <header className="jumbotron">
-            <h3>Tic Tac Toe</h3>
-          </header>
-          <div>Please login to play Tic Tac Toe</div>
+        <div class="alert alert-primary" role="alert">
+          Please login to play Tic Tac Toe
         </div>
       );
     }
 
     return (
-      <div className="container">
-        <header className="jumbotron">
-          <h3>Tic Tac Toe</h3>
-        </header>
-        <div>
-          <Link to="/computer">
-            <button className="btn btn-primary">Play vs. Computer</button>
-          </Link>
-        </div>
-        <div>
-          <Link to="/player">
-            <button className="btn btn-primary">Play vs. Human</button>
-          </Link>
+      <div className="container text-center">
+        <div className="row">
+          <div className="col">
+            <Link to="/computer">
+              <button className="btn btn-primary btn-lg">
+                Play vs. Computer
+              </button>
+            </Link>
+          </div>
+          <div className="col">
+            <Link to="/player">
+              <button className="btn btn-primary btn-lg">Play vs. Human</button>
+            </Link>
+          </div>
         </div>
       </div>
     );

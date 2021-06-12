@@ -1,10 +1,21 @@
 .square {
   background: #fff;
-  border: 1px solid black;
-  float: left;
-  font-size: 50px;
+  font-size: 70px;
   font-weight: bold;
-  height: 100px;
+  height: 150px;
+  width: 150px;
   text-align: center;
-  width: 100px;
+	vertical-align: middle;
+	line-height: 150px;
+	cursor: pointer;
+}
+
+.border-v {
+  border-left: 1px solid black !important;
+  border-right: 1px solid black !important;
+}
+
+.border-h {
+  border-top: 1px solid black !important;
+  border-bottom: 1px solid black !important;
 }

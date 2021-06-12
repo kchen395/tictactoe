@@ -8,6 +8,7 @@ export default class Computer extends Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.checkWinner = this.checkWinner.bind(this);
+    this.rematch = this.rematch.bind(this);
 
     this.state = {
       moves: Array(9).fill(null),
@@ -90,15 +91,14 @@ export default class Computer extends Component {
     this.setState({ moves });
   }
 
+  rematch() {
+    this.setState({ moves: Array(9).fill(null), winner: "" });
+  }
+
   render() {
     const { moves, winner, user } = this.state;
     if (!user) return <div></div>;
 
-    const square = i => (
-      <button className="square" onClick={() => this.handleClick(i)}>
-        {moves[i]}
-      </button>
-    );
     let result;
     if (winner === "player") {
       result = "Player Wins!";
@@ -110,16 +110,22 @@ export default class Computer extends Component {
 
     return (
       <div className="container">
-        <header className="jumbotron">
-          <h3>Tic Tac Toe</h3>
+			<header className="jumbotron">
           <h4>Vs. Computer</h4>
         </header>
         {result && (
-          <div className="alert alert-primary" role="alert">
+          <div className="alert alert-info text-center" role="alert">
             {result}
           </div>
         )}
         <Board handleClick={this.handleClick} moves={moves} />
+        {result && (
+          <div className="text-center">
+            <button className="btn btn-primary mt-3" onClick={this.rematch}>
+              Rematch
+            </button>
+          </div>
+        )}
       </div>
     );
   }
