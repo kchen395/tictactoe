@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import * as _ from "lodash";
 import socket from "../io";
 import AuthService from "../services/auth.service";
+import axios from "axios";
+const API_URL = window.location.origin + "/api/";
 
 export default class Computer extends Component {
   constructor(props) {
@@ -16,7 +18,8 @@ export default class Computer extends Component {
       gameKey: "",
       currGame: null,
       mark: "",
-      user: ""
+      user: "",
+      opponent: ""
     };
   }
 
@@ -92,15 +95,26 @@ export default class Computer extends Component {
   }
 
   handleClick(i) {
-    const { moves, mark, game, gameKey } = this.state;
+    const { moves, mark, game, gameKey, user, opponent } = this.state;
     if (moves[i]) return;
     if (game.winningMark) return;
     if (game.currTurn !== mark) return;
     moves[i] = mark;
     if (this.checkWinner(moves, mark)) {
+      axios.put(API_URL + "leaderboard/record", { username: user });
+      axios.post(API_URL + "game/record", {
+        player1: user,
+        player2: opponent,
+        winner: user
+      });
       game.winningMark = mark;
     }
     if (moves.filter(move => !!move).length === 9) {
+      axios.post(API_URL + "game/record", {
+        player1: user,
+        player2: opponent,
+        winner: "draw"
+      });
       game.winningMark = "draw";
     }
     game.moves = moves;

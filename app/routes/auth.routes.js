@@ -18,5 +18,9 @@ module.exports = function(app) {
     controller.signup
   );
 
-  app.post("/api/auth/signin", controller.signin);
+	app.post("/api/auth/signin", controller.signin);
+
+	app.put("/api/leaderboard/record", controller.record)
+
+	app.get("/api/leaderboard/retrieve", controller.retrieve)
 };

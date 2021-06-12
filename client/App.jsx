@@ -9,7 +9,9 @@ import Register from "./components/register";
 import Home from "./components/home";
 import Computer from "./components/computer";
 import Player from "./components/player";
-import "./index.css"
+import Leaderboard from "./components/leaderboard";
+import History from "./components/history";
+import "./index.css";
 
 class App extends Component {
   constructor(props) {
@@ -72,6 +74,20 @@ class App extends Component {
               </li>
             </div>
           )}
+          <div className="navbar-nav ml-auto">
+            <li className="nav-item">
+              <a href="/leaderboard" className="nav-link">
+                Leaderboard
+              </a>
+            </li>
+          </div>
+          <div className="navbar-nav ml-auto">
+            <li className="nav-item">
+              <a href="/history" className="nav-link">
+                History
+              </a>
+            </li>
+          </div>
         </nav>
 
         <div className="container mt-3">
@@ -81,8 +97,10 @@ class App extends Component {
             </Route>
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
-						<Route exact path="/computer" component={Computer} />
-						<Route exact path="/player" component={Player} />
+            <Route exact path="/computer" component={Computer} />
+            <Route exact path="/player" component={Player} />
+            <Route exact path="/leaderboard" component={Leaderboard} />
+            <Route exact path="/history" component={History} />
           </Switch>
         </div>
       </div>

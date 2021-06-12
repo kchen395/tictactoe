@@ -8,7 +8,8 @@ var bcrypt = require("bcryptjs");
 exports.signup = (req, res) => {
   User.create({
     username: req.body.username,
-    password: bcrypt.hashSync(req.body.password, 8)
+    password: bcrypt.hashSync(req.body.password, 8),
+    wins: 0
   })
     .then(user => {
       res.send({ message: "Success!" });
@@ -49,6 +50,34 @@ exports.signin = (req, res) => {
         id: user.id,
         username: user.username,
         accessToken: token
+      });
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+};
+
+exports.record = (req, res) => {
+  User.increment("wins", {
+    where: {
+      username: req.body.username
+    }
+  })
+    .then(user => {
+      res.send({ message: "Success!" });
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+};
+
+exports.retrieve = (req, res) => {
+  User.findAll()
+    .then(data => {
+      res.status(200).send({
+        data: data.map(user => {
+          return { username: user.username, wins: user.wins };
+        })
       });
     })
     .catch(err => {

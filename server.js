@@ -24,6 +24,7 @@ app.use(express.static("public"));
 db.sequelize.sync();
 
 require("./app/routes/auth.routes")(app);
+require("./app/routes/game.routes")(app);
 app.get("/*", function(req, res) {
   res.sendFile(path.join(__dirname, "./public/index.html"), function(err) {
     if (err) {
