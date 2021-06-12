@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import * as _ from "lodash";
 import socket from "../io";
 import AuthService from "../services/auth.service";
+import Board from "./board";
 import axios from "axios";
 const API_URL = window.location.origin + "/api/";
 
@@ -10,16 +11,16 @@ export default class Computer extends Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.checkWinner = this.checkWinner.bind(this);
+    this.rematch = this.rematch.bind(this);
 
     this.state = {
       moves: Array(9).fill(null),
       status: "",
       opponent: "",
       gameKey: "",
-      currGame: null,
+      game: null,
       mark: "",
-      user: "",
-      opponent: ""
+      user: ""
     };
   }
 
@@ -54,6 +55,9 @@ export default class Computer extends Component {
   }
 
   componentWillUnmount() {
+    if (this.state.status === "") {
+      socket.emit("joinGame", { username: null });
+    }
     socket.off("status");
     socket.off("receiveMove");
   }
@@ -123,15 +127,15 @@ export default class Computer extends Component {
     this.setState({ moves, game });
   }
 
-  render() {
-    const { moves, game, mark, user } = this.state;
-    if (!user) return <div></div>;
+  rematch(i) {
+    const { user } = this.state;
+    this.setState({ status: "" });
+    socket.emit("joinGame", { username: user });
+  }
 
-    const square = i => (
-      <button className="square" onClick={() => this.handleClick(i)}>
-        {moves[i]}
-      </button>
-    );
+  render() {
+    const { moves, game, mark, user, status } = this.state;
+    if (!user) return <div></div>;
 
     const statusWidget = () => {
       const { status, opponent } = this.state;
@@ -143,30 +147,12 @@ export default class Computer extends Component {
     };
 
     const boardWidget = () => {
-      if (!this.state.status) return;
-      return (
-        <div>
-          <div className="row">
-            {square(0)}
-            {square(1)}
-            {square(2)}
-          </div>
-          <div className="row">
-            {square(3)}
-            {square(4)}
-            {square(5)}
-          </div>
-          <div className="row">
-            {square(6)}
-            {square(7)}
-            {square(8)}
-          </div>
-        </div>
-      );
+      if (!status) return;
+      return <Board handleClick={this.handleClick} moves={moves} />;
     };
 
     const resultWidget = () => {
-      if (!game || !game.winningMark) return;
+      if (!game || !game.winningMark || !status) return;
       let result;
       if (game.winningMark === mark) {
         result = "You win!";
@@ -182,6 +168,15 @@ export default class Computer extends Component {
       );
     };
 
+    const rematchWidget = () => {
+      if (!game || !game.winningMark || !status) return;
+      return (
+        <button className="btn btn-primary" onClick={this.rematch}>
+          Find new game
+        </button>
+      );
+    };
+
     return (
       <div className="container">
         <header className="jumbotron">
@@ -191,6 +186,7 @@ export default class Computer extends Component {
         {statusWidget()}
         {resultWidget()}
         {boardWidget()}
+        {rematchWidget()}
       </div>
     );
   }

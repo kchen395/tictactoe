@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import * as _ from "lodash";
 import AuthService from "../services/auth.service";
+import Board from "./board";
 
 export default class Computer extends Component {
   constructor(props) {
@@ -18,9 +19,9 @@ export default class Computer extends Component {
   async componentDidMount() {
     const user = await AuthService.getCurrentUser();
     if (user) {
-			this.setState({ user: user.username });
+      this.setState({ user: user.username });
     } else {
-			window.location.replace("/login");
+      window.location.replace("/login");
     }
   }
 
@@ -118,21 +119,7 @@ export default class Computer extends Component {
             {result}
           </div>
         )}
-        <div className="row">
-          {square(0)}
-          {square(1)}
-          {square(2)}
-        </div>
-        <div className="row">
-          {square(3)}
-          {square(4)}
-          {square(5)}
-        </div>
-        <div className="row">
-          {square(6)}
-          {square(7)}
-          {square(8)}
-        </div>
+        <Board handleClick={this.handleClick} moves={moves} />
       </div>
     );
   }
