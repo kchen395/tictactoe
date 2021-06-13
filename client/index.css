@@ -11,11 +11,11 @@
 }
 
 .border-v {
-  border-left: 1px solid black !important;
-  border-right: 1px solid black !important;
+  border-left: 3px solid black !important;
+  border-right: 3px solid black !important;
 }
 
 .border-h {
-  border-top: 1px solid black !important;
-  border-bottom: 1px solid black !important;
+  border-top: 3px solid black !important;
+  border-bottom: 3px solid black !important;
 }

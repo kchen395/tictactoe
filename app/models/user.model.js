@@ -5,10 +5,10 @@ module.exports = (sequelize, Sequelize) => {
     },
     password: {
       type: Sequelize.STRING
-		},
-		wins: {
-			type: Sequelize.INTEGER
-		}
+    },
+    wins: {
+      type: Sequelize.INTEGER
+    }
   });
 
   return User;

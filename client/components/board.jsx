@@ -13,7 +13,11 @@ export default function Board(props) {
     8: "square"
   };
   const square = i => (
-    <div key={"square" + i} className={borderPicker[i]} onClick={() => props.handleClick(i)}>
+    <div
+      key={"square" + i}
+      className={borderPicker[i]}
+      onClick={() => props.handleClick(i)}
+    >
       {props.moves[i]}
     </div>
   );
@@ -25,7 +29,11 @@ export default function Board(props) {
       row.push(square(j + i * 3));
     }
 
-    squares.push(<div key={"row" + i} className="row justify-content-center">{row}</div>);
+    squares.push(
+      <div key={"row" + i} className="row justify-content-center">
+        {row}
+      </div>
+    );
   }
 
   return <div className="mt-2">{squares}</div>;
