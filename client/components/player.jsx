@@ -6,7 +6,7 @@ import Board from "./board";
 import axios from "axios";
 const API_URL = window.location.origin + "/api/";
 
-export default class Computer extends Component {
+export default class Player extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
@@ -103,17 +103,17 @@ export default class Computer extends Component {
     if (moves[i]) return;
     if (game.winningMark) return;
     if (game.currTurn !== mark) return;
-    moves[i] = mark;
+		moves[i] = mark;
+		let player1;
+		let player2;
+    if (mark === "X") {
+      player1 = user;
+      player2 = opponent;
+    } else {
+      player1 = opponent;
+      player2 = user;
+    }
     if (this.checkWinner(moves, mark)) {
-      let player1;
-      let player2;
-      if (mark === "X") {
-        player1 = user;
-        player2 = opponent;
-      } else {
-        player1 = opponent;
-        player2 = user;
-      }
       axios.put(API_URL + "leaderboard/record", { username: user });
       axios.post(API_URL + "game/record", {
         player1,
@@ -181,10 +181,7 @@ export default class Computer extends Component {
       if (!game || !game.winningMark || !status) return;
       return (
         <div className="text-center">
-          <button
-            className="btn btn-primary mt-3"
-            onClick={this.rematch}
-          >
+          <button className="btn btn-primary mt-3" onClick={this.rematch}>
             Find new game
           </button>
         </div>

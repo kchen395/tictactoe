@@ -15,7 +15,7 @@ export default class Home extends Component {
 
     if (!currentUser) {
       return (
-        <div class="alert alert-primary" role="alert">
+        <div className="alert alert-primary" role="alert">
           Please login to play Tic Tac Toe
         </div>
       );
